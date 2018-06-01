@@ -1,31 +1,32 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppMaterialModule } from './app-material/app-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { AppMaterialModule } from 'src/app/app-material/app-material.module';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     HomeComponent,
+    HeaderComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    AppMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AppMaterialModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

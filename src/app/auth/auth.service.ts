@@ -5,24 +5,24 @@ import { User } from './user';
 
 @Injectable()
 export class AuthService {
-  private loggedIn = new BehaviorSubject<boolean>(false); 
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get isLoggedIn() {
-    return this.loggedIn.asObservable(); 
+    return this.loggedIn.asObservable();
   }
 
   constructor(
     private router: Router
   ) {}
 
-  login(user: User){
+  login(user: User) {
     if (user.userName !== '' && user.password !== '' ) {
       this.loggedIn.next(true);
       this.router.navigate(['/']);
     }
   }
 
-  logout() {                            
+  logout() {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }
